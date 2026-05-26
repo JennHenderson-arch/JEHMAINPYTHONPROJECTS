@@ -1,0 +1,32 @@
+Python Playwright Cheats
+
+your friend: https://playwright.dev/python/docs
+
+w Playwright using Python, there is no --ui :( but there are workarounds:
+Codegen appears to be the python --ui equivalent:
+PS C:\Users\shala\JEHmainPythonProjects> .\venv\Scripts\python.exe -m playwright codegen https://example.com --target=python
+
+trace viewer (also from --ui):
+pytest --tracing on (can probably add this via ini, addopts)
+
+
+These run the individual tests, but not use friendly way
+(venv) PS C:\shala\JEHmainPythonProjects> & c:\Users\shala\JEHmainPythonProjects\venv\Scripts\python.exe c:/Users/shala/JEHmainPythonProjects/tests/test_playwright01.py
+
+(venv) PS C:\Users\shala\JEHmainPythonProjects> & c:\Users\shala\JEHmainPythonProjects\venv\Scripts\python.exe c:/Users/shala/JEHmainPythonProjects/tests/test_GoogleCheck.py
+
+This is more user friendly:
+.\venv\Scripts\python.exe -m pytest tests/test_playwright01.py::test_example_title -q
+
+
+
+even easier
+ PS C:\Users\shala\JEHmainPythonProjects\tests> pytest test_GoogleCheck.py   
+ with report:
+with pytest-html (can probably ini/config file this somehow) (pip installed it in the root JEHmainPythonProjects) - DONE !! in ini use addopts = --html=report.html --self-contained-html This puts the report in the root JEHmainPythonProjects folder.
+ (venv) PS C:\Users\shala\JEHmainPythonProjects\tests> pytest test_GoogleCheck.py --html=report.html   This puts the report in the tests folder.
+
+even easier is running the tests form the Testing side panel Test Explorere configured for pytest
+
+ 20260525 - have this all running - all that is not working is the Playwright Testing sidebar.
+ Need to add Github repo and back up all files.
