@@ -7,7 +7,7 @@ Codegen appears to be the python --ui equivalent:
 PS C:\Users\shala\JEHmainPythonProjects> .\venv\Scripts\python.exe -m playwright codegen https://example.com --target=python
 
 trace viewer (also from --ui):
-pytest --tracing on (can probably add this via ini, addopts)
+pytest --tracing on (can probably add this via pytest.ini, addopts)
 
 
 These run the individual tests, but not use friendly way
