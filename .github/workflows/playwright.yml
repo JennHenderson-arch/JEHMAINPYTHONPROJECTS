@@ -1,4 +1,5 @@
 name: Playwright Tests
+# This workflow runs Playwright tests on push and pull request events for the main and master branches as a GitHub Action. 20260526 JEH.
 on:
   push:
     branches: [ main, master ]
@@ -27,4 +28,3 @@ jobs:
       with:
         name: playwright-traces
         path: test-results/ 
-        

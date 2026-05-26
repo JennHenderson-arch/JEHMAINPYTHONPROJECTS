@@ -1,0 +1,3 @@
+playwright==1.60.0
+selenium==4.44.0
+webdriver_manager==4.1.1

@@ -11,3 +11,4 @@ def test_example_title(browser_type) -> None:
     time.sleep(5)  # Just to see the page before it closes
     expect(page).to_have_title("Example Domain")
     browser.close()
+ 
