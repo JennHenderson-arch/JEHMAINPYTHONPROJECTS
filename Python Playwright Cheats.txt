@@ -18,7 +18,8 @@ These run the individual tests, but not use friendly way
 This is more user friendly:
 .\venv\Scripts\python.exe -m pytest tests/test_playwright01.py::test_example_title -q
 
-
+>>geez. if you want to see print messages in pytest you have to run them pytest -s.
+dont put an addopts into pytest .ini or it could cause issues.
 
 even easier
  PS C:\Users\shala\JEHmainPythonProjects\tests> pytest test_GoogleCheck.py   
@@ -26,7 +27,9 @@ even easier
 with pytest-html (can probably ini/config file this somehow) (pip installed it in the root JEHmainPythonProjects) - DONE !! in ini use addopts = --html=report.html --self-contained-html This puts the report in the root JEHmainPythonProjects folder.
  (venv) PS C:\Users\shala\JEHmainPythonProjects\tests> pytest test_GoogleCheck.py --html=report.html   This puts the report in the tests folder.
 
+
 even easier is running the tests form the Testing side panel Test Explorere configured for pytest
 
  20260525 - have this all running - all that is not working is the Playwright Testing sidebar.
- Need to add Github repo and back up all files.
+ Need to add Github repo and back up all files. DONE: 20260526  
+   Needs fix to actually run the tests in the test folder, but othern than that the Github CI Action on Commit works PERFECTLY!!
