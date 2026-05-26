@@ -11,8 +11,11 @@ import time
 import os
 #import pymqi
 
+
 ## Data files for BAPLIE message creation.  These are synched with the BOLA load combinations as indicated in the comments.  If you change one, change the other
-""" import Date  ## needs to go first so tripleg ID and voyage nos are available
+import Date  
+import Submitter
+"""## needs to go first so tripleg ID and voyage nos are available
 import Vess  ## Trip and Voyage are computed here
 import Pers
 import Port """
@@ -72,51 +75,49 @@ timeNowTime837 = "1741"  ## Time of message creation - use Date.timeNowTme for t
 
 provider = "BILLING PROVIDER"  ## This is the name of the billing provider, which is used in the NM1 segment of the message.  This is not the same as the name of the submitter, which is used in the NM1 segment of the message.
  
-header83701 = "ISA*00*          *00*          *ZZ*1234567        *ZZ*11111          *170508*1141*^*00501*000000101*1*P*:~\nGS*HC*XXXXXXX*XXXXX*"+timeNowDate837+"*"+timeNowTime837+"*101*X*005010X222A1~\nST*837*1239*005010X222A1~"
+header83701 = "ISA*00*          *00*          *ZZ*1234567        *ZZ*11111          *170508*1141*^*00501*000000101*1*P*:~\nGS*HC*XXXXXXX*XXXXX*"+Date.timeNowDate837+"*"+Date.timeNowTime837+"*101*X*005010X222A1~\nST*837*1239*005010X222A1~"
 
+
+
+submitter = "\nBHT*0019*00*010*"+Date.timeNowDate837+"*"+Date.timeNowTime837+"*CH~\nNM1*41*2*SUBMITTER*****46*ABC123~\nPER*IC*"+Submitter.fName+" "+Submitter.lName+"*TE*4805551212~\nNM1*40*2*RECEIVER*****46*44556~"
 
 """
-BHT*0019*00*010*20170617*1741*CH~
-NM1*41*2*SUBMITTER*****46*ABC123~
-PER*IC*BOB SMITH*TE*4805551212~
-NM1*40*2*RECEIVER*****46*44556~
+\nHL*1**20*1~
+\nNM1*85*2*BILLING PROVIDER*****XX*1122334455~
+\nN3*1234 SOME ROAD~
+\nN4*CHICAGO*IL*606739999~
+\nREF*EI*999999999~
 
-HL*1**20*1~
-NM1*85*2*BILLING PROVIDER*****XX*1122334455~
-N3*1234 SOME ROAD~
-N4*CHICAGO*IL*606739999~
-REF*EI*999999999~
+\nHL*2*1*22*0~
+\nSBR*P*18*******12~
+\nNM1*IL*1*BLOGGS*JOE****MI*1234567890~
+\nN3*1 SOME BLVD~
+\nN4*CHICAGO*IL*606129998~
+\nDMG*D8*19570111*M~
+\nNM1*PR*2*PAYER*****PI*12345~
+\nN3*1 PAYER WAY~
+\nN4*ST LOUIS*MO*212441850~
+\nREF*2U*W1014~
+\nCLM*1000A*140***19:B:1*Y*A*Y*Y~
+\nHI*ABK:I10~
+\nLX*1~
+\nSV1*HC:99213*140*UN*1***1~
+\nDTP*472*D8*20151124~
 
-HL*2*1*22*0~
-SBR*P*18*******12~
-NM1*IL*1*BLOGGS*JOE****MI*1234567890~
-N3*1 SOME BLVD~
-N4*CHICAGO*IL*606129998~
-DMG*D8*19570111*M~
-NM1*PR*2*PAYER*****PI*12345~
-N3*1 PAYER WAY~
-N4*ST LOUIS*MO*212441850~
-REF*2U*W1014~
-CLM*1000A*140***19:B:1*Y*A*Y*Y~
-HI*ABK:I10~
-LX*1~
-SV1*HC:99213*140*UN*1***1~
-DTP*472*D8*20151124~
+\nHL*3*1*22*0~
+\nSBR*P*18*******12~
+\nNM1*IL*1*BLOGGS*FRED****MI*9876543201~
+\nN3*1 ANOTHER STR~
+\nN4*CHICAGO*IL*606129998~
+\nDMG*D8*19700601*M~
+\nNM1*PR*2*PAYER*****PI*12345~
+\nN3*1 PAYER WAY~
+\nN4*ST LOUIS*MO*212441850~
+\nREF*2U*W1014~
 
-HL*3*1*22*0~
-SBR*P*18*******12~
-NM1*IL*1*BLOGGS*FRED****MI*9876543201~
-N3*1 ANOTHER STR~
-N4*CHICAGO*IL*606129998~
-DMG*D8*19700601*M~
-NM1*PR*2*PAYER*****PI*12345~
-N3*1 PAYER WAY~
-N4*ST LOUIS*MO*212441850~
-REF*2U*W1014~
-
-CLM*1001A*140***19:B:1*Y*A*Y*Y~
-HI*ABK:I10~
-LX*1~
+\nCLM*1001A*140***19:B:1*Y*A*Y*Y~
+\nHI*ABK:I10~
+\nLX*1~
 """
 ## SV1 is the service line segment, SV1 is unique to the 837P.
 ## Used to report the details of the service provided, such as the procedure code, the charge amount, and the units of service.  
@@ -223,7 +224,7 @@ bolaLoad = "ALFA"
 
 ##################
 ## 837P Message ##
-message = header83701 + SV101 + ender837
+message = header83701 + submitter + SV101 + ender837
 
 
 
