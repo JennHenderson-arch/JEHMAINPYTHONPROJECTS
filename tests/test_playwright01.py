@@ -21,5 +21,5 @@ def test_example_title(page, is_ci):
     time.sleep(5)
     expect(page).to_have_title("Example Domain")
     print("Title is correct.")
-    page.close()
+    #page.close()  #this causes page to close before the page title can be checked.  I think it is because the page object is shared across tests, so closing it here would affect other tests that use the same page. By not closing it, we allow the test to check the title before any cleanup happens. The browser will still be closed at the end of the test session by Playwright's test runner, so we don't need to worry about leaving it open.
  
