@@ -16,7 +16,7 @@ def test_google_title(browser_type, is_ci):
 
     expect(page).to_have_title("Google")
     print("Google title is correct.")
-    
+
     browser.close()
 
     
