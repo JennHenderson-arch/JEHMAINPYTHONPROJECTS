@@ -32,4 +32,25 @@ even easier is running the tests form the Testing side panel Test Explorere conf
 
  20260525 - have this all running - all that is not working is the Playwright Testing sidebar.
  Need to add Github repo and back up all files. DONE: 20260526  
-   Needs fix to actually run the tests in the test folder, but othern than that the Github CI Action on Commit works PERFECTLY!!
+   Needs fix to actually run the tests in the test folder, but othern than that the Github CI Action on Commit works PERFECTLY!!  DONE!!
+
+Set pytest (custom) tags, like smoke, regression, etc. - see pytest,inin and how these are currently set up in smoke tests.
+These can be set in playwright yaml file for GitHub Actions - and run individually: 
+pytest -m smoke
+pytest -m "not smoke"
+pytest -m "smoke or api"
+
+
+Running jobs via playwright.yaml
+on:
+  schedule:
+    - cron: "0 9 * * *"   # 4 AM EST
+
+jobs:
+  nightly-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run smoke tests
+        run: pytest -m smoke --tracing=on
+

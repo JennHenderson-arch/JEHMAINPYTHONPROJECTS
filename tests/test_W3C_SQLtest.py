@@ -6,7 +6,11 @@
 
 import time
 import re
-from playwright.sync_api import Playwright, sync_playwright, expect
+import pytest
+
+from playwright.sync_api import expect
+
+@pytest.mark.smoke
 
 
 def test_runSQL(playwright: Playwright) -> None:
@@ -31,6 +35,7 @@ def test_runSQL(playwright: Playwright) -> None:
     page1.locator("pre").click()
     time.sleep(2)
 
+
 ## Clear the wonky textbox that doesn't clear with the normal .clear() method.  
 # Focus the element first
     locator = page1.get_by_role("textbox")
@@ -40,12 +45,15 @@ def test_runSQL(playwright: Playwright) -> None:
     page1.keyboard.press("Backspace")
     time.sleep(2)
 
+
     page1.get_by_role("textbox").fill("SELECT * FROM Employees where FirstName= 'Nancy';")
     time.sleep(3)
 
     page1.get_by_role("button", name="Run SQL »").click()
     time.sleep(2)
     expect(page1.locator("iframe[name=\"view\"]").content_frame.get_by_role("rowgroup")).to_contain_text("Education includes a BA in psychology from Colorado State University. She also completed (The Art of the Cold Call). Nancy is a member of Toastmasters International.")
+
+    print("Expected text is displayed in the output frame.")
 
     time.sleep(5)
     # ---------------------
