@@ -8,6 +8,7 @@ import pytest
 from playwright.sync_api import expect
 
 @pytest.mark.smoke
+@pytest.mark.regression
 
 
 def test_google_title(page, is_ci):

@@ -6,6 +6,7 @@ import pytest
 from playwright.sync_api import expect
 
 @pytest.mark.smoke
+@pytest.mark.regression
 
 
 

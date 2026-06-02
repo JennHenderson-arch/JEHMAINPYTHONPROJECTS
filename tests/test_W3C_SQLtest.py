@@ -8,9 +8,11 @@ import time
 import re
 import pytest
 
+
 from playwright.sync_api import expect
 
 @pytest.mark.smoke
+@pytest.mark.regression
 
 
 def test_runSQL(playwright: Playwright) -> None:

@@ -9,6 +9,7 @@ import pytest
 
 @pytest.mark.smoke
 @pytest.mark.api
+@pytest.mark.regression
 
 
 def test_get_user_success():

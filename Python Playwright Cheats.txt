@@ -54,3 +54,4 @@ jobs:
       - name: Run smoke tests
         run: pytest -m smoke --tracing=on
 
+added others, see the yaml. 
