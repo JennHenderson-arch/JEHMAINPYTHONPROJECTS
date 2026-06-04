@@ -5,7 +5,7 @@ name: Playwright Tests
 on:
   # --- Nightly Smoke Tests (4 AM EST = 09:00 UTC) ---
   schedule:
-    - cron: "0 9 * * *"
+    - cron: "0 4 * * *" # Actually - '0 9 * * *' seems to run at 9 local time, so this should be 4 AM EST. Will need to verify this.
 
   # --- Fast Tests on Pull Requests ---
   pull_request:
@@ -36,7 +36,7 @@ jobs:
           playwright install --with-deps
 
       - name: Run Smoke Tests
-        run: pytest -m smoke --tracing=on
+        run: pytest tests -m smoke --tracing=on
 
       - name: Upload Smoke Test Artifacts
         uses: actions/upload-artifact@v4
@@ -62,7 +62,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run API Tests
-        run: pytest -m api
+        run: pytest tests -m api
 
   # ============================
   # Fast PR Checks
@@ -84,7 +84,7 @@ jobs:
           playwright install --with-deps
 
       - name: Run Fast Tests (Smoke + API)
-        run: pytest -m "smoke or api"
+        run: pytest tests -m "smoke or api"
 
   # ============================
   # Full Regression (Manual Trigger)
@@ -106,7 +106,7 @@ jobs:
           playwright install --with-deps
 
       - name: Run Full Regression Suite
-        run: pytest --tracing=on
+        run: pytest tests --tracing=on  ## Note: No marker filter means all tests will run, including regression tests. May want to explicitly use '-m regression' if you want to only run regression tests.
 
       - name: Upload Regression Artifacts
         uses: actions/upload-artifact@v4
@@ -134,7 +134,7 @@ jobs:
           playwright install --with-deps
 
       - name: Run Regression Tests
-        run: pytest -m regression --tracing=on
+        run: pytest tests -m regression --tracing=on
 
       - name: Upload Regression Artifacts
         uses: actions/upload-artifact@v4
